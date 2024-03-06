@@ -14,7 +14,7 @@ from CFG import CFG
 
 from dataset import MultitaskDataset
 
-from arch import DeepLabV3Plus
+from arch import multitask
 from sklearn.model_selection import train_test_split
 from tqdm import tqdm
 import torch.nn.functional as F
@@ -340,7 +340,7 @@ def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
-    model_seg = DeepLabV3Plus().to(device)
+    model_seg = multitask().to(device)
 
 
 
