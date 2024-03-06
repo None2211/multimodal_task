@@ -15,7 +15,7 @@ from albumentations import Compose, RandomCrop
 from albumentations.pytorch import ToTensorV2
 from dataset import MultitaskDataset
 
-from deelab_seg import DeepLabV3Plus
+from deelab_seg import multitask
 from sklearn.model_selection import train_test_split
 from tqdm import tqdm
 import torch.nn.functional as F
@@ -143,7 +143,7 @@ if __name__ == "__main__":
     test_dataset = MultitaskDataset(image_folder,medi_pretrain,img_folder_224,mask_folder, test_filenames,centroids_filepath=centroids_filepath)
     train_loader = DataLoader(test_dataset, batch_size=1, shuffle=True)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model = DeepLabV3Plus().to(device)
+    model = multitask().to(device)
 
 
 
