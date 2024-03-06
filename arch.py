@@ -92,27 +92,10 @@ class ImageTextDecoderClassifier(nn.Module):
 
         return logits
 
-class channel_attention(nn.Module):
-    def __init__(self, in_planes, ratio=16):
-        super(channel_attention, self).__init__()
-        self.avg_pool = nn.AdaptiveAvgPool2d(1)
-        self.max_pool = nn.AdaptiveMaxPool2d(1)
 
-        self.fc1   = nn.Conv2d(in_planes, in_planes // 16, 1, bias=False)
-        self.relu1 = nn.ReLU()
-        self.fc2   = nn.Conv2d(in_planes // 16, in_planes, 1, bias=False)
-
-        self.sigmoid = nn.Sigmoid()
-
-    def forward(self, x):
-        x0 = x
-        avg_out = self.fc2(self.relu1(self.fc1(self.avg_pool(x))))
-        max_out = self.fc2(self.relu1(self.fc1(self.max_pool(x))))
-        out = avg_out + max_out
-        return x0 * self.sigmoid(out)
-class DeepLabV3Plus(nn.Module):
+class multitask(nn.Module):
     def __init__(self):
-        super(DeepLabV3Plus, self).__init__()
+        super(multitask, self).__init__()
 
 
         self.backbone = models.resnet34(pretrained=True)
@@ -190,7 +173,7 @@ if __name__ == "__main__":
 
 
 
-    model_seg = DeepLabV3Plus()
+    model_seg = multitask()
 
     mask,subtype,bm = model_seg(image,text,coors)
     print(bm.shape)
