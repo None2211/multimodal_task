@@ -1,5 +1,3 @@
-
-
 # Multimodality-task method
 ## Overview
 
